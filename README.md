@@ -1,6 +1,6 @@
 - 👋 Hi, I’m @SpandhanaNagaraj12
 - 👀 I’m interested in coding.
-- 🌱 I’m currently learning B.E.
+- 🌱 I’m currently pursuing B.E in Alva's Institute of Engineering and Technology.
 - 💞️ I’m looking to collaborate on java..
 - 📫 How to reach me through my mail id-spandhanan21@gmail.com
 .
