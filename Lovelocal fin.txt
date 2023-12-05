@@ -1,0 +1,160 @@
+1. Easy 1
+#include <stdio.h>
+#include <string.h>
+
+int lengthOfLastWord(const char *str) {
+    int length = 0;
+    int i = strlen(str) - 1;
+
+    //skip the extra spaces
+    while (i >= 0 && str[i] == ' ') {
+        i--;
+    }
+
+    /* Calculating the length of last word. Enter the while loop when i is greater than 0 and string at ith position is not a space*/ 
+    while (i >= 0 && str[i] != ' ') {
+        //if condition in while loop is satisfied then length is incremented by 1
+        length++;
+        i--;
+    }
+
+    return length;
+}
+
+int main() {
+    //assuming length of a as 100 
+    char a[100];  
+    // Taking input from user
+    printf("Enter a string: ");
+    fgets(a, sizeof(a), stdin);
+
+//Remove the newline character from the input if it is present 
+    int len = strlen(a);
+    if (a[len - 1] == '\n') {
+        a[len - 1] = '\0';
+    }
+
+
+    // Calculating and printing the length of the last word
+    int result = lengthOfLastWord(a);
+    printf("Length of the last word: %d\n", result);
+
+    return 0;
+}
+
+
+
+2. Medium 1
+#include <stdio.h>
+#include <stdlib.h>
+
+// Definition for a binary tree node.
+struct TreeNode {
+    int val;
+    struct TreeNode *left;
+    struct TreeNode *right;
+};
+
+struct TreeNode* lowestCommonAncestor(struct TreeNode* root, struct TreeNode* p, struct TreeNode* q) {
+    if (root == NULL) {
+        return NULL;
+    }
+
+    if (root->val > p->val && root->val > q->val) {
+        // Both nodes are in the left subtree
+        return lowestCommonAncestor(root->left, p, q);
+    } else if (root->val < p->val && root->val < q->val) {
+        // Both nodes are in the right subtree
+        return lowestCommonAncestor(root->right, p, q);
+    } else {
+        // One node is in the left subtree, and the other is in the right subtree
+        return root;
+    }
+}
+
+// Helper function to create a new node
+struct TreeNode* newNode(int val) {
+    struct TreeNode* node = (struct TreeNode*)malloc(sizeof(struct TreeNode));
+    node->val = val;
+    node->left = NULL;
+    node->right = NULL;
+    return node;
+}
+
+int main() {
+    // Create the BST: [6,2,8,0,4,7,9,null,null,3,5]
+    struct TreeNode* root = newNode(6);
+    root->left = newNode(2);
+    root->right = newNode(8);
+    root->left->left = newNode(0);
+    root->left->right = newNode(4);
+    root->right->left = newNode(7);
+    root->right->right = newNode(9);
+    root->left->right->left = newNode(3);
+    root->left->right->right = newNode(5);
+
+    // Given nodes p=2 and q=8
+    struct TreeNode* p = root->left;
+    struct TreeNode* q = root->right;
+
+    // Find the lowest common ancestor
+    struct TreeNode* lca = lowestCommonAncestor(root, p, q);
+
+    // Output the result
+    printf("Output: %d\n", lca->val);
+
+    return 0;
+}
+3. Hard 2
+#include <stdio.h>
+#include <string.h>
+
+int isPalindrome(char *str, int start, int end) {
+    while (start < end) {
+        if (str[start] != str[end]) {
+            return 0; // Not a palindrome
+        }
+        start++;
+        end--;
+    }
+    return 1; // Palindrome
+}
+
+void makePalindrome(char *s) {
+    int len = strlen(s);
+
+    // Check if the string is already a palindrome
+    if (isPalindrome(s, 0, len - 1)) {
+        printf("Output: %s\n", s);
+        return;
+    }
+
+    // Find the longest palindrome prefix
+    int i;
+    for (i = len - 2; i >= 0; i--) {
+        if (isPalindrome(s, 0, i)) {
+            break;
+        }
+    }
+
+    // Build the result string
+    for (int j = len - 1; j > i; j--) {
+        printf("%c", s[j]);
+    }
+    printf("%s\n", s);
+}
+
+int main() {
+    char input1[] = "aacecaaa";
+    printf("Input: %s\n", input1);
+    makePalindrome(input1);
+
+    char input2[] = "abcd";
+    printf("Input: %s\n", input2);
+    makePalindrome(input2);
+
+    return 0;
+}
+
+
+
